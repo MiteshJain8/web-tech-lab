@@ -21,6 +21,37 @@
             padding: 8px;
             margin: 5px 0;
         }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .input-group button {
+            width: auto;
+            margin-top: 10px;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -28,14 +59,14 @@
     
     <p>Create a function called mixUp. It should take in two strings, and return the concatenation of the two strings (separated by a space) slicing out and swapping the first 2 characters of each. You can assume that the strings are at least 2 characters long.</p>
     
-    <div>
+    <div class="input-group">
         <label for="string1">First String:</label>
-        <input type="text" id="string1" placeholder="Enter first string">
+        <input type="text" id="string1" placeholder="Enter first string" required>
     </div>
     
-    <div>
+    <div class="input-group">
         <label for="string2">Second String:</label>
-        <input type="text" id="string2" placeholder="Enter second string">
+        <input type="text" id="string2" placeholder="Enter second string" required>
     </div>
     
     <button onclick="performMixUp()">Mix Up Strings</button>

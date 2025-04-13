@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verbing Function</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        input, button {
+            padding: 8px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .input-group button {
+            width: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Verbing</h1>
+
+    <p>Create a function called verbing. It should take a single argument, a string. If its length is at least 3, it should add 'ing' to its end, unless it already ends in 'ing', in which case it should add 'ly' instead. If the string length is less than 3, it should leave it unchanged. For example:
+        verbing('swim'): 'swimming'
+        verbing('swimming'): 'swimmingly'
+        verbing('go'): 'go'</p>
+    <div class="input-group">
+        <label for="inputString">Input string:</label>
+        <input type="text" id="inputString" placeholder="Enter a string">
+    </div>
+    <button onclick="verbing()">Process</button>
+    <div class="output" id="result"></div>
+
+    <script>
+        function verbing() {
+            const str = document.getElementById("inputString").value;
+            var result = "";
+            if (str.length < 3) {
+                result = str;
+            } else if (str.endsWith('ing')) {
+                result = str + 'ly';
+            } else {
+                result = str + 'ing';
+            }
+            document.getElementById("result").innerText = result;
+        }
+    </script>
+</body>
+</html>

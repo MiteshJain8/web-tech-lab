@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Array</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px dashed #ccc;
+            background-color: #f9f9f9;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .input-group button {
+            width: auto;
+            margin-top: 10px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px dashed #ccc;
+            background-color: #f9f9f9;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        input, button {
+            padding: 8px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>The Array</h1>
+    <p>Create an array to hold your top choices (colors, presidents, whatever).
+        For each choice, log to the screen a string like: "My #1 choice is blue."
+        Bonus: Change it to log "My 1st choice, "My 2nd choice", "My 3rd choice", picking the right suffix for the number based on what it is.</p>
+    <div class="input-group">
+        <label for="inputArray">Input array:</label>
+        <input type="text" id="inputArray" placeholder="Enter your choices (comma separated)">
+    </div>
+    <button onclick="theArray()">Process</button>
+    <div id="result"></div>
+    <script>
+        function theArray() {
+            const input = document.getElementById('inputArray').value;
+            const choices = input.split(',').map(choice => choice.trim());
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+
+            choices.forEach((choice, index) => {
+                let suffix = 'th';
+                if (index === 0) suffix = 'st';
+                else if (index === 1) suffix = 'nd';
+                else if (index === 2) suffix = 'rd';
+
+                const message = `My ${index + 1}${suffix} choice is ${choice}.`;
+                resultDiv.innerHTML += `<p>${message}</p>`;
+            });
+        }
+    </script>
+</body>
+</html>

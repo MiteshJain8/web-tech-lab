@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not Bad Function</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        input, button {
+            padding: 8px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .input-group button {
+            width: auto;
+            margin-top: 10px;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Not Bad</h1>
+    <p>Create a function called notBad that takes a single argument, a string.
+        It should find the first appearance of the substring 'not' and 'bad'.
+        If the 'bad' follows the 'not', then it should replace the whole 'not'...'bad' substring with 'good' and return the result.
+        If it doesn't find 'not' and 'bad' in the right sequence (or at all), just return the original sentence.
+        For example:
+        notBad('This dinner is not that bad!'): 'This dinner is good!'
+        notBad('This movie is not so bad!'): 'This movie is good!'
+        notBad('This dinner is bad!'): 'This dinner is bad!'</p>
+
+    <div class="input-group">
+        <label for="inputString">Input string:</label>
+        <input type="text" id="inputString" placeholder="Enter a string">
+    </div>
+    <button onclick="notBad()">Process</button>
+    <div id="result"></div>
+    <script>
+        function notBad() {
+            const str = document.getElementById("inputString").value;
+            const notIndex = str.indexOf('not');
+            const badIndex = str.indexOf('bad');
+
+            var result = str;
+            if (notIndex !== -1 && badIndex !== -1 && notIndex < badIndex) {
+                result = str.substring(0, notIndex) + 'good' + str.substring(badIndex + 3);
+            }
+            document.getElementById("result").innerText = result;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pluralizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px dashed #ccc;
+            background-color: #f9f9f9;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .input-group button {
+            width: auto;
+            margin-top: 10px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px dashed #ccc;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>The Pluralizer</h1>
+    <p>Write a function named pluralize that:
+        takes 2 arguments, a noun and a number.
+        returns the number and pluralized form, like "5 cats" or "1 dog".
+        Call that function for a few different scores and log the result to make sure it works.
+        Bonus: Make it handle a few collective nouns like "sheep" and "geese".</p>
+
+    <div class="input-group">
+        <label for="noun">Noun:</label>
+        <input type="text" id="noun" placeholder="Enter a noun">
+    </div>
+    <div class="input-group">
+        <label for="number">Number:</label>
+        <input type="number" id="number" placeholder="Enter a number">
+    </div>
+    <button onclick="pluralize()">Pluralize</button>
+    <div id="result"></div>
+
+    <script>
+        function pluralize() {
+            const noun = document.getElementById('noun').value;
+            const number = parseInt(document.getElementById('number').value, 10);
+            let pluralNoun = noun;
+
+            if (number === 1) {
+                pluralNoun = noun;
+            } else if (noun.toLowerCase() === 'sheep') {
+                pluralNoun = 'sheep';
+            } else if (noun.toLowerCase() === 'goose') {
+                pluralNoun = 'geese';
+            } else {
+                pluralNoun += 's';
+            }
+
+            const result = `${number} ${pluralNoun}`;
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+</body>
+</html>
