@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Card Validator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .valid {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .invalid {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Credit Card Validator</h1>
+    
+    <div class="input-group">
+        <label for="creditCardNumber">Enter Credit Card Number:</label>
+        <input type="text" id="creditCardNumber" placeholder="e.g., 9999-9999-8888-0000">
+    </div>
+    
+    <button onclick="checkCard()">Validate Card</button>
+    
+    <div id="result" class="result hidden"></div>
+
+    <script>
+        function validateCreditCard(cardNumber) {
+
+            const cleanedNumber = cardNumber.replace(/[\s-]/g, '');
+            
+            if (cleanedNumber.length !== 16) {
+                return { valid: false, number: cardNumber, error: 'wrong_length' };
+            }
+        
+            if (!/^\d+$/.test(cleanedNumber)) {
+                return { valid: false, number: cardNumber, error: 'invalid_characters' };
+            }
+            
+            const uniqueDigits = new Set(cleanedNumber.split('')).size;
+            if (uniqueDigits < 2) {
+                return { valid: false, number: cardNumber, error: 'only_one_type_of_number' };
+            }
+            
+            const lastDigit = parseInt(cleanedNumber[cleanedNumber.length - 1]);
+            if (lastDigit % 2 !== 0) {
+                return { valid: false, number: cardNumber, error: 'odd_final_number' };
+            }
+            
+            const sum = cleanedNumber.split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+            if (sum <= 16) {
+                return { valid: false, number: cardNumber, error: 'sum_less_than_16' };
+            }
+            
+            return { valid: true, number: cardNumber };
+        }
+
+        function checkCard() {
+            const cardNumberInput = document.getElementById('creditCardNumber').value;
+            const resultDiv = document.getElementById('result');
+            
+            const validationResult = validateCreditCard(cardNumberInput);
+            
+            resultDiv.classList.remove('hidden', 'valid', 'invalid');
+            
+            if (validationResult.valid) {
+                resultDiv.classList.add('valid');
+                resultDiv.innerHTML = `
+                    <h3>Valid Card!</h3>
+                    <p>Card number: ${validationResult.number}</p>
+                `;
+            } else {
+                resultDiv.classList.add('invalid');
+                let errorMessage = '';
+                
+                switch(validationResult.error) {
+                    case 'wrong_length':
+                        errorMessage = 'The card number must contain 16 digits.';
+                        break;
+                    case 'invalid_characters':
+                        errorMessage = 'The card number can only contain numbers.';
+                        break;
+                    case 'only_one_type_of_number':
+                        errorMessage = 'The card number must have at least two different digits.';
+                        break;
+                    case 'odd_final_number':
+                        errorMessage = 'The final digit must be even.';
+                        break;
+                    case 'sum_less_than_16':
+                        errorMessage = 'The sum of all digits must be greater than 16.';
+                        break;
+                    default:
+                        errorMessage = 'Unknown error.';
+                }
+                
+                resultDiv.innerHTML = `
+                    <h3>Invalid Card!</h3>
+                    <p>Card number: ${validationResult.number}</p>
+                    <p>Error: ${errorMessage}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #game-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        #word-display {
+            font-size: 2rem;
+            letter-spacing: 5px;
+            margin: 20px 0;
+        }
+        #message {
+            min-height: 50px;
+            margin: 20px 0;
+        }
+        .margin-top-30 {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Word Guessing Game</h1>
+        <p>Guess the word one letter at a time!</p>
+        <div id="word-display"></div>
+        <div id="message"></div>
+        <button onclick="resetGame()">New Game</button>
+        <div class="margin-top-30">
+            <p>Type a letter and press Enter to guess</p>
+            <label for="letter-input">Enter a letter:</label>
+            <input type="text" id="letter-input" maxlength="1" onkeyup="handleKeyUp(event)" placeholder="Type a letter">
+        </div>
+    </div>
+
+    <script>
+        // Global arrays for word letters and guessed letters
+        let wordLetters = [];
+        let guessedLetters = [];
+        
+        // Initialize the game with a random word
+        function initGame() {
+            const words = ['FOX', 'JAVASCRIPT', 'PROGRAMMING', 'COMPUTER', 'DEVELOPER'];
+            const randomWord = words[Math.floor(Math.random() * words.length)];
+            
+            wordLetters = randomWord.split('');
+            guessedLetters = Array(wordLetters.length).fill('_');
+            
+            updateDisplay();
+            
+            const messageElement = document.getElementById('message');
+            if (messageElement) {
+                messageElement.textContent = 'Game started! Guess a letter.';
+            }
+        }
+        
+        function updateDisplay() {
+            const displayElement = document.getElementById('word-display');
+            if (displayElement) {
+                displayElement.textContent = guessedLetters.join(' ');
+            }
+        }
+        
+        function handleKeyUp(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('letter-input');
+                if (input) {
+                    const letter = input.value.toUpperCase();
+                    
+                    if (letter.match(/[A-Z]/)) {
+                        guessLetter(letter);
+                        input.value = '';
+                    }
+                }
+            }
+        }
+        
+        function guessLetter(letter) {
+            let foundLetter = false;
+            let allLettersGuessed = true;
+            let message = '';
+            
+            for (let i = 0; i < wordLetters.length; i++) {
+                if (wordLetters[i] === letter) {
+                    guessedLetters[i] = letter;
+                    foundLetter = true;
+                }
+            }
+            
+            for (let i = 0; i < guessedLetters.length; i++) {
+                if (guessedLetters[i] === '_') {
+                    allLettersGuessed = false;
+                    break;
+                }
+            }
+            
+            updateDisplay();
+            
+            if (foundLetter) {
+                message = `Good job! You found the letter ${letter}!`;
+            } else {
+                message = `Sorry, the letter ${letter} is not in the word.`;
+            }
+            
+            if (allLettersGuessed) {
+                message += ' Congratulations! You won the game!';
+            }
+            
+            // Display the message
+            const messageElement = document.getElementById('message');
+            if (messageElement) {
+                messageElement.textContent = message;
+            }
+            
+            console.log('Current word state:', guessedLetters.join(''));
+            console.log(message);
+            
+            return allLettersGuessed;
+        }
+        
+        function resetGame() {
+            initGame();
+        }
+        
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initGame();
+        });
+    </script>
+</body>
+</html>

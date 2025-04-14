@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .read {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+        }
+        .unread {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <h1>The Reading List</h1>
+    <ul id="bookList"></ul>
+
+    <script>
+        const books = [
+            {
+                title: "The Hobbit",
+                author: "J.R.R. Tolkien",
+                alreadyRead: true
+            },
+            {
+                title: "The Lord of the Rings",
+                author: "J.R.R. Tolkien",
+                alreadyRead: false
+            },
+            {
+                title: "To Kill a Mockingbird",
+                author: "Harper Lee",
+                alreadyRead: true
+            },
+            {
+                title: "1984",
+                author: "George Orwell",
+                alreadyRead: false
+            },
+            {
+                title: "Pride and Prejudice",
+                author: "Jane Austen",
+                alreadyRead: true
+            }
+        ];
+
+        const bookList = document.getElementById("bookList");
+
+        books.forEach(book => {
+            console.log(`${book.title} by ${book.author}`);
+
+            const listItem = document.createElement("li");
+            
+            listItem.className = book.alreadyRead ? "read" : "unread";
+            
+            if (book.alreadyRead) {
+                listItem.textContent = `You already read "${book.title}" by ${book.author}`;
+            } else {
+                listItem.textContent = `You still need to read "${book.title}" by ${book.author}`;
+            }
+            
+            bookList.appendChild(listItem);
+        });
+    </script>
+</body>
+</html>
