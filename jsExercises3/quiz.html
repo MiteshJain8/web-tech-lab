@@ -1,0 +1,361 @@
+<!--
+        Name: Mitesh Jain
+        USN: 1MS22CS085
+        Section: Your Section
+        
+        Learning about scope in JavaScript:
+        Through this assignment, I've learned that scope determines the accessibility
+        of variables and functions in JavaScript. Global scope makes variables accessible
+        everywhere, while function scope restricts them to the function they're declared in.
+        Variables declared with 'var' inside blocks are still accessible outside those blocks,
+        unlike 'let' and 'const'. Hoisting means variable and function declarations are moved
+        to the top of their scope during execution, though only the declarations, not initializations.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Scopes Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .quiz-container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .result {
+            font-weight: bold;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #e9e9e9;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .activity-section {
+            margin-top: 40px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+        .console {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Scopes Quiz</h1>
+    
+    <!-- Quiz Section -->
+    <div class="quiz-container">
+        <h2>Quiz Section</h2>
+        <p>Answer these 3 questions about JavaScript:</p>
+        
+        <div class="question" id="question1">
+            <p>1. What does the term "hoisting" refer to in JavaScript?</p>
+            <input type="radio" name="q1" value="a" id="q1a"><label for="q1a"> Moving functions to the top of the file</label><br>
+            <input type="radio" name="q1" value="b" id="q1b"><label for="q1b"> Variables and function declarations being moved to the top of their scope</label><br>
+            <input type="radio" name="q1" value="c" id="q1c"><label for="q1c"> Loading JavaScript before HTML</label><br>
+        </div>
+        
+        <div class="question" id="question2">
+            <p>2. Which type of variables are accessible only within the function they are declared in?</p>
+            <input type="radio" name="q2" value="a" id="q2a"><label for="q2a"> Global variables</label><br>
+            <input type="radio" name="q2" value="b" id="q2b"><label for="q2b"> Local variables</label><br>
+            <input type="radio" name="q2" value="c" id="q2c"><label for="q2c"> External variables</label><br>
+        </div>
+        
+        <div class="question" id="question3">
+            <p>3. What's the difference between function declaration and function expression?</p>
+            <input type="radio" name="q3" value="a" id="q3a"><label for="q3a"> Function declarations are hoisted, expressions are not</label><br>
+            <input type="radio" name="q3" value="b" id="q3b"><label for="q3b"> Function declarations use the keyword 'var', expressions use 'function'</label><br>
+            <input type="radio" name="q3" value="c" id="q3c"><label for="q3c"> There is no difference</label><br>
+        </div>
+        
+        <button id="submitQuiz">Submit Quiz</button>
+        <button id="reviewScore">Review Score (Scope Demo)</button>
+        
+        <div class="result" id="quizResult"></div>
+    </div>
+    
+    <!-- Activity Score Calculator -->
+    <div class="activity-section">
+        <h2>Student Activity Score Calculator</h2>
+        
+        <div>
+            <label for="studentName">Student Name:</label>
+            <input type="text" id="studentName" placeholder="Enter student name">
+        </div>
+        
+        <div>
+            <label>Activity Scores:</label>
+            <input type="number" id="score1" placeholder="Sports Score" min="0" max="100">
+            <input type="number" id="score2" placeholder="Clubs Score" min="0" max="100">
+            <input type="number" id="score3" placeholder="Coding Contest Score" min="0" max="100">
+            <input type="number" id="score4" placeholder="Other Activity Score" min="0" max="100">
+        </div>
+        
+        <button id="calculateActivity">Calculate Activity Score</button>
+        <button id="hoistingDemo">Demonstrate Hoisting</button>
+        <button id="scopeIsolationTest">Test Scope Isolation</button>
+        
+        <div class="console" id="activityResult"></div>
+    </div>
+
+    <script>
+        
+        // Global variable for quiz score
+        var quizScore = 0;
+        
+        // Function declaration for question 1
+        function checkQuestion1() {
+            // Local variable to evaluate the answer
+            var correctAnswer = "b";
+            var selectedAnswer = document.querySelector('input[name="q1"]:checked');
+            
+            if (selectedAnswer && selectedAnswer.value === correctAnswer) {
+                quizScore++;
+                return true;
+            }
+            return false;
+        }
+        
+        // Function expression for question 2
+        const checkQuestion2 = function() {
+            // Local variable to evaluate the answer
+            var correctAnswer = "b";
+            var selectedAnswer = document.querySelector('input[name="q2"]:checked');
+            
+            if (selectedAnswer && selectedAnswer.value === correctAnswer) {
+                quizScore++;
+                return true;
+            }
+            return false;
+        };
+        
+        // Anonymous function assigned to a variable for question 3
+        const checkQuestion3 = function() {
+            // Local variable to evaluate the answer
+            var correctAnswer = "a";
+            var selectedAnswer = document.querySelector('input[name="q3"]:checked');
+            
+            // Demonstrating variable q3Score (this variable is only accessible within this function)
+            var q3Score = 0;
+            
+            if (selectedAnswer && selectedAnswer.value === correctAnswer) {
+                quizScore++;
+                q3Score = 1;
+                return true;
+            }
+            return false;
+        };
+        
+        // Hoisting demonstration
+        function demonstrateHoisting() {
+            // Using a variable before declaration - will show 'undefined' because of hoisting
+            console.log("Value of demoVar before declaration: " + demoVar);
+            
+            // Now declare the variable
+            var demoVar = "I'm hoisted!";
+            console.log("Value of demoVar after declaration: " + demoVar);
+            
+            // Function calls can happen before declaration because of hoisting
+            hoistedFunction();
+            
+            function hoistedFunction() {
+                console.log("This function was called before its declaration due to hoisting");
+            }
+            
+            return "Hoisting demonstration complete. Check console.";
+        }
+        
+        // Event Listeners
+        document.getElementById('submitQuiz').addEventListener('click', function() {
+            // Reset the score
+            quizScore = 0;
+            
+            // Check each question
+            const q1Result = checkQuestion1();
+            const q2Result = checkQuestion2();
+            const q3Result = checkQuestion3();
+            
+            // Display result
+            document.getElementById('quizResult').innerHTML = `
+                You scored ${quizScore} out of 3.<br>
+                Question 1: ${q1Result ? "Correct" : "Incorrect"}<br>
+                Question 2: ${q2Result ? "Correct" : "Incorrect"}<br>
+                Question 3: ${q3Result ? "Correct" : "Incorrect"}
+            `;
+        });
+        
+        // Bonus: Review score button to demonstrate scope isolation
+        document.getElementById('reviewScore').addEventListener('click', function() {
+            try {
+                // This will cause an error because q3Score is local to checkQuestion3
+                document.getElementById('quizResult').innerHTML = `
+                    Attempting to access q3Score: ${q3Score}
+                `;
+            } catch (error) {
+                document.getElementById('quizResult').innerHTML = `
+                    Error: ${error.message}<br>
+                    This demonstrates that variables declared inside a function (like q3Score in checkQuestion3) 
+                    cannot be accessed outside that function's scope.
+                `;
+            }
+        });
+        
+        // Activity Score Calculator Section
+        
+        // Global variables for student activity
+        var studentName;
+        var activityScores = [];
+        
+        // Function declaration for total calculation
+        function calculateTotal() {
+            let total = 0;
+            for (let i = 0; i < activityScores.length; i++) {
+                total += activityScores[i];
+            }
+            return total;
+        }
+        
+        // Function expression for rank evaluation
+        const evaluateRank = function(totalScore) {
+            if (totalScore > 40) {
+                return "Star Performer";
+            } else if (totalScore >= 30 && totalScore <= 40) {
+                return "Active";
+            } else {
+                return "Inactive";
+            }
+        };
+        
+        // Anonymous function for average calculation
+        const calculateAverage = function(total, count) {
+            return total / count;
+        };
+        
+        // Lexical scope demonstration with nested function
+        function generateReport() {
+            const totalScore = calculateTotal();
+            const rank = evaluateRank(totalScore);
+            let message;
+            
+            // Setting message based on rank
+            if (rank === "Star Performer") {
+                message = "Great job on co-curriculars!";
+            } else if (rank === "Active") {
+                message = "Good effort, keep it up!";
+            } else {
+                message = "Consider participating in more activities.";
+            }
+            
+            // Nested function that uses variables from outer function (lexical scope)
+            function showDetails() {
+                return `
+                    Student: ${studentName}
+                    Rank: ${rank}
+                    Message: ${message}
+                `;
+            }
+            
+            // Return the result of the nested function
+            return showDetails();
+        }
+        
+        // Calculate activity score button
+        document.getElementById('calculateActivity').addEventListener('click', function() {
+            studentName = document.getElementById('studentName').value || "Anonymous";
+            
+            // Get all scores
+            activityScores = [
+                Number(document.getElementById('score1').value) || 0,
+                Number(document.getElementById('score2').value) || 0,
+                Number(document.getElementById('score3').value) || 0,
+                Number(document.getElementById('score4').value) || 0
+            ];
+            
+            // Calculate results
+            const totalScore = calculateTotal();
+            const avgScore = calculateAverage(totalScore, activityScores.length);
+            const rank = evaluateRank(totalScore);
+            
+            // Generate and display report
+            const report = generateReport();
+            
+            document.getElementById('activityResult').innerHTML = `
+                Student: ${studentName}
+                Activity Scores: [${activityScores.join(', ')}]
+                Total Score: ${totalScore}
+                Average Score: ${avgScore.toFixed(1)}
+                Rank: ${rank}
+                
+                Report:
+                ${report}
+            `;
+        });
+        
+        // Hoisting demo button
+        document.getElementById('hoistingDemo').addEventListener('click', function() {
+            const result = demonstrateHoisting();
+            document.getElementById('activityResult').innerHTML = result;
+        });
+        
+        // Scope isolation test button
+        document.getElementById('scopeIsolationTest').addEventListener('click', function() {
+            // Demonstrating that var declared in a block is accessible outside it
+            if (true) {
+                var blockVar = "I'm declared in a block";
+                let blockLet = "I'm also in a block, but limited to it";
+            }
+            
+            try {
+                document.getElementById('activityResult').innerHTML = `
+                    Accessing blockVar outside its block: "${blockVar}"
+                    
+                    This demonstrates that variables declared with 'var' inside blocks
+                    are still accessible outside those blocks because var has function scope,
+                    not block scope.
+                    
+                    If we try to access blockLet: "${typeof blockLet === 'undefined' ? 'Error - not accessible' : blockLet}"
+                `;
+            } catch (error) {
+                document.getElementById('activityResult').innerHTML += `
+                    Error accessing blockLet: ${error.message}
+                    This shows that 'let' has block scope.
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
